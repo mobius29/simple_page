@@ -7,5 +7,6 @@ router.get('/sign-up', ctrl.SignupForm);
 router.get('/sign-in', ctrl.SigninForm);
 
 router.post('/sign-up', ctrl.Signup);
+router.post('/sign-in', ctrl.Signin);
 
 module.exports = router;

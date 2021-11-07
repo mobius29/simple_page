@@ -18,13 +18,9 @@ const SigninForm = async(req, res, next) => {
 
 const Signup = async (req, res, next) => {
     try {
-        const { userName } = req.body;
-        const { password } = req.body;
-        const { displayName } = req.body;
-        const { introduce } = req.body;
-        const { gender } = req.body;
-        
-        AuthDAO.sign_up(userName, password, displayName, introduce, gender);
+        const { userName, password, displayName, introduce, gender } = req.body;
+
+        await AuthDAO.sign_up(userName, password, displayName, introduce, gender);
 
         res.redirect('/');
     } catch(e){
@@ -32,8 +28,25 @@ const Signup = async (req, res, next) => {
     }
 };
 
+const Signin = async (req, res, next) => {
+    try {
+        const { userName, password } = req.body;
+        if(!userName || !password) throw new Error("black is not allowed");
+
+        const get_pw = await AuthDAO.sign_in(userName);
+        if(!get_pw) throw new Error("ID is not correct");
+
+        if(get_pw.password === password) res.redirect('/');
+
+        else throw new Error("Password is not correct");
+    } catch(e){
+        next(e);
+    }
+}
+
 module.exports = {
     SignupForm,
     SigninForm,
     Signup,
+    Signin,
 }
