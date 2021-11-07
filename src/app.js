@@ -8,6 +8,6 @@ app.set('view engine', 'pug');
 app.use('/', express.static(`${__dirname}/../public`));
 app.use(express.urlencoded({ extended: true}));
 
-app.get('/', (req, res) => res.send("Hello World"));
+app.get('/', (req, res) => res.render('index.pug'));
 
 module.exports = app;
