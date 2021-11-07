@@ -1,0 +1,12 @@
+CREATE TABLE `users` (
+	`ID` INT NOT NULL AUTO_INCREMENT,
+	`userName` VARCHAR(16) NOT NULL UNIQUE,
+	`password` VARCHAR(160) NOT NULL,
+	`displayName` VARCHAR(32) NOT NULL UNIQUE,
+	`introduce` TEXT NOT NULL,
+	`gender` CHAR(1) NOT NULL,
+	`dateJoined` TIMESTAMP NOT NULL DEFAULT current_timestamp(),
+	`isActive` TINYINT(1) NOT NULL DEFAULT 1,
+
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
