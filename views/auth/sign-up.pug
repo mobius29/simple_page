@@ -1,0 +1,25 @@
+extends ../layout.pug
+
+block title
+	| sign-up 
+
+block page_title 
+	h1 Sign-up
+
+block content 
+	form(action="/auth/sign-up" method="post")
+		p
+			input(type="text" name="userName" placeholder="ID")
+		p
+			input(type="password" name="password" placeholder="password")
+		p
+			input(type="text" name="displayName" placeholder="displayName")
+		p 
+			input(type="text" name="introduce" placeholder="introduce")
+		p 
+			select(name="gender")
+				option(value="M") M
+				option(value="F") F
+
+		p
+			input.btn(type="submit" value="sign-up")
