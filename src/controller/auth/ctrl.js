@@ -53,7 +53,7 @@ const Signin = async (req, res, next) => {
     } catch(e){
         next(e);
     }
-}
+};
 
 const Signout = async (req, res, next) => {
     try {
@@ -64,7 +64,7 @@ const Signout = async (req, res, next) => {
     } catch(e){
         next (e);
     }
-}
+};
 
 module.exports = {
     SignupForm,

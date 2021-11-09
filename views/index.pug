@@ -4,7 +4,12 @@ block title
     | Home 
 
 block page_title 
-    | Welcome to my home 
+    | Welcome to Users' Community
 
 block content
-    | Enjoy my home
+    if user 
+        p Click Users button and Check all Users 
+
+    else
+        p Please, Sign-in our community and enjoy community.
+        p If you don't have account, please sign-up first.
