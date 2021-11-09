@@ -60,3 +60,9 @@ li {
 	width: 1200px;
 	height: 100px;
 }
+
+table{
+	width: 800px;
+	border: 1px solid gray;
+	text-align: center;
+}

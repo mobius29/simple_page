@@ -7,6 +7,6 @@ const user = require('./user');
 
 router.get('/', ctrl.indexPage);
 router.use('/auth', auth);
-router.use('/user', user);
+router.use('/users', user);
 
 module.exports = router;
