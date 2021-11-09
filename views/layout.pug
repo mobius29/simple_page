@@ -14,13 +14,13 @@ html(lang="ko")
                     a.logo(href="/") Home 
 
                     if user
-                        ul 
+                        ul.nav-item
                             li
                                 a(href="/user") Users 
                             li 
                                 a(href="/auth/sign-out") Sign-out
                     else 
-                        ul 
+                        ul.nav-item
                             li 
                                 a(href="/auth/sign-up") Sign-up 
                             li

@@ -28,9 +28,12 @@ a{
 }
 
 ul {
+	list-style: none;
+}
+
+.nav-item{
 	float: right;
 	display: inline;
-	list-style: none;
 }
 
 li {
