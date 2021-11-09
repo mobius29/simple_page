@@ -6,7 +6,7 @@ const sign_up = async(userName, password, displayName, introduce, gender) => {
 }
 
 const sign_in = async(userName) => {
-    const sql = "SELECT password FROM users WHERE userName=? AND isActive=1;";
+    const sql = "SELECT ID, userName, password, displayName, introduce, gender, dataJoined, inActive FROM users WHERE userName=? AND isActive=1;";
     const [res] = await runQuery(sql, [userName]);
     return res;
 }
