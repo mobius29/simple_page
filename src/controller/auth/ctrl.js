@@ -55,9 +55,21 @@ const Signin = async (req, res, next) => {
     }
 }
 
+const Signout = async (req, res, next) => {
+    try {
+        req.session.destroy(e => {
+            if(e) throw new Error("BAD_REQUEST");
+        });
+        res.redirect('/');
+    } catch(e){
+        next (e);
+    }
+}
+
 module.exports = {
     SignupForm,
     SigninForm,
     Signup,
     Signin,
+    Signout,
 }

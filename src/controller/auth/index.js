@@ -9,4 +9,6 @@ router.get('/sign-in', ctrl.SigninForm);
 router.post('/sign-up', ctrl.Signup);
 router.post('/sign-in', ctrl.Signin);
 
+router.get('/sign-out', ctrl.Signout);
+
 module.exports = router;
