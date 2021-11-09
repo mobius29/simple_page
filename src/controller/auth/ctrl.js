@@ -36,8 +36,19 @@ const Signin = async (req, res, next) => {
         const get_pw = await AuthDAO.sign_in(userName);
         if(!get_pw) throw new Error("ID is not correct");
 
-        if(get_pw.password === password) res.redirect('/');
-
+        if(get_pw.password === password) {
+            req.session.user = {
+                ID: parseInt(get_pw['ID']),
+                userName: userName,
+                displayName: get_pw['displayName'],
+                introduce: get_pw['introduce'],
+                gender: get_pw['gender'],
+                dateJoined: get_pw['dateJoined'],
+                isActive: get_pw['isActive'],
+            };
+            
+            res.redirect('/');
+        }
         else throw new Error("Password is not correct");
     } catch(e){
         next(e);

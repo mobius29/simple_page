@@ -13,11 +13,18 @@ html(lang="ko")
                 nav
                     a.logo(href="/") Home 
 
-                    ul 
-                        li 
-                            a(href="/auth/sign-up") Sign-up 
-                        li
-                            a(href="/auth/sign-in") Sign-in 
+                    if user
+                        ul 
+                            li
+                                a(href="/users") Users 
+                            li 
+                                a(href="/auth/sign-out") Sign-out
+                    else 
+                        ul 
+                            li 
+                                a(href="/auth/sign-up") Sign-up 
+                            li
+                                a(href="/auth/sign-in") Sign-in 
             .contents
                 p.content.page_title
                     block page_title 
