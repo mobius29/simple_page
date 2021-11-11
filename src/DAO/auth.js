@@ -1,7 +1,7 @@
 const { runQuery } = require('../lib/database');
 
 const chk_dup = async(userName, displayName) => {
-    const sql = "SELECT ID FROM users WHERE userName=? OR displayName=?;";
+    const sql = "SELECT ID FROM users WHERE userName=? OR displayName=? AND isActive=1;";
     const [list] = await runQuery(sql, [userName, displayName]);
 
     return list;

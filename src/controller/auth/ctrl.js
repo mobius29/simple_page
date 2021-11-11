@@ -23,7 +23,7 @@ const Signup = async (req, res, next) => {
 
         if(!userName || !password || !displayName || !introduce || !gender) throw new Error("BAD_REQUEST");
 
-        const list = AuthDAO.chk_dup(userName, displayName);
+        const list = await AuthDAO.chk_dup(userName, displayName);
         if(list) throw new Error("BAD_REQUEST");
 
         const enc_pw = await auth.generate(password);
@@ -40,21 +40,20 @@ const Signin = async (req, res, next) => {
         const { userName, password } = req.body;
         if(!userName || !password) throw new Error("black is not allowed");
 
-        const get_pw = await AuthDAO.sign_in(userName);
-        if(!get_pw) throw new Error("BAD_REQUEST");
+        const get_user = await AuthDAO.sign_in(userName);
+        if(!get_user) throw new Error("BAD_REQUEST");
         
-        const verify = await auth.verify(password, get_pw['password']);
-
+        const verify = await auth.verify(password, get_user['password']);
         if(!verify) throw new Error("BAD_REQUEST");
 
         req.session.user = {
-            ID: parseInt(get_pw['ID']),
+            ID: parseInt(get_user['ID']),
             userName: userName,
-            displayName: get_pw['displayName'],
-            introduce: get_pw['introduce'],
-            gender: get_pw['gender'],
-            dateJoined: get_pw['dateJoined'],
-            isActive: get_pw['isActive'],
+            displayName: get_user['displayName'],
+            introduce: get_user['introduce'],
+            gender: get_user['gender'],
+            dateJoined: get_user['dateJoined'],
+            isActive: get_user['isActive'],
         };
         
         res.redirect('/');

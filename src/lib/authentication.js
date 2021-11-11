@@ -16,12 +16,12 @@ const generate = async password => {
 
 const verify = async (password, hashedPassword) => {
 	const [algo, hashed_salt, hashed_itr, hashed_keylen, hashed_digest] = hashedPassword.split(':');
-	const solt = Buffer.from(hashed_salt, 'base64');
+	const salt = Buffer.from(hashed_salt, 'base64');
 	const iter = parseInt(hashed_itr);
 	const key_len = parseInt(hashed_keylen);
 	const digest = Buffer.from(hashed_digest, 'base64');
 
-	const dig = await pbkdf2(password, slat, iter, key_len, algo);
+	const dig = await pbkdf2(password, salt, iter, key_len, algo);
 	return Buffer.compare(dig, digest) === 0;
 }
 
