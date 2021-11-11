@@ -4,6 +4,6 @@ const router = Router();
 const ctrl = require('./ctrl');
 
 router.get('/', ctrl.getList);
-router.get('/users', ctrl.getUser);
+router.get('/:displayName', ctrl.getUser);
 
 module.exports = router;

@@ -18,6 +18,4 @@ app.use(session({
 
 app.use('/', controller);
 
-app.get('/', (req, res) => res.render('index.pug'));
-
 module.exports = app;

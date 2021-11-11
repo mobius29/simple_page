@@ -11,7 +11,7 @@ const getList = async (req, res, next) => {
 
 const getUser = async (req, res, next) => {
 	try {
-		displayName = req.query.displayName;
+		displayName = req.params.displayName;
 		if(!displayName) throw new Error("BAD_REQUEST");
 		
 		const user = await UserDAO.getUser(displayName);
