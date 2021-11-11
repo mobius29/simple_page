@@ -1,4 +1,5 @@
 const { AuthDAO } = require('../../DAO');
+const auth = require('../../lib/authentication');
 
 const SignupForm = async (req, res, next) => {
     try {
@@ -20,7 +21,13 @@ const Signup = async (req, res, next) => {
     try {
         const { userName, password, displayName, introduce, gender } = req.body;
 
-        await AuthDAO.sign_up(userName, password, displayName, introduce, gender);
+        if(!userName || !password || !displayName || !introduce || !gender) throw new Error("BAD_REQUEST");
+
+        const list = AuthDAO.chk_dup(userName, displayName);
+        if(list) throw new Error("BAD_REQUEST");
+
+        const enc_pw = await auth.generate(password);
+        await AuthDAO.sign_up(userName, enc_pw, displayName, introduce, gender);
 
         res.redirect('/');
     } catch(e){
@@ -34,22 +41,23 @@ const Signin = async (req, res, next) => {
         if(!userName || !password) throw new Error("black is not allowed");
 
         const get_pw = await AuthDAO.sign_in(userName);
-        if(!get_pw) throw new Error("ID is not correct");
+        if(!get_pw) throw new Error("BAD_REQUEST");
+        
+        const verify = await auth.verify(password, get_pw['password']);
 
-        if(get_pw.password === password) {
-            req.session.user = {
-                ID: parseInt(get_pw['ID']),
-                userName: userName,
-                displayName: get_pw['displayName'],
-                introduce: get_pw['introduce'],
-                gender: get_pw['gender'],
-                dateJoined: get_pw['dateJoined'],
-                isActive: get_pw['isActive'],
-            };
-            
-            res.redirect('/');
-        }
-        else throw new Error("Password is not correct");
+        if(!verify) throw new Error("BAD_REQUEST");
+
+        req.session.user = {
+            ID: parseInt(get_pw['ID']),
+            userName: userName,
+            displayName: get_pw['displayName'],
+            introduce: get_pw['introduce'],
+            gender: get_pw['gender'],
+            dateJoined: get_pw['dateJoined'],
+            isActive: get_pw['isActive'],
+        };
+        
+        res.redirect('/');
     } catch(e){
         next(e);
     }

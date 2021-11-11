@@ -1,5 +1,12 @@
 const { runQuery } = require('../lib/database');
 
+const chk_dup = async(userName, displayName) => {
+    const sql = "SELECT ID FROM users WHERE userName=? OR displayName=?;";
+    const [list] = await runQuery(sql, [userName, displayName]);
+
+    return list;
+}
+
 const sign_up = async(userName, password, displayName, introduce, gender) => {
     const sql = "INSERT INTO users(userName, password, displayName, introduce, gender) VALUES (?, ?, ?, ?, ?);";
     await runQuery(sql, [userName, password, displayName, introduce, gender]);
@@ -12,6 +19,7 @@ const sign_in = async(userName) => {
 }
 
 module.exports = {
+    chk_dup,
     sign_up,
     sign_in,
 }
